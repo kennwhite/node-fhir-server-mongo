@@ -5,11 +5,19 @@ const env = require('var');
  * @name mongoConfig
  * @summary Configurations for our Mongo instance
  */
+if (env.MONGO_HOSTNAME.includes('mongodb+srv')) {
+  var connStr = `${env.MONGO_HOSTNAME}`;
+}
+else {
+  var connStr = `mongodb://${env.MONGO_HOSTNAME}`;
+}
+
 let mongoConfig = {
-  connection: `mongodb://${env.MONGO_HOSTNAME}`,
+//  connection: `mongodb://${env.MONGO_HOSTNAME}`,
+  connection: connStr,
   db_name: env.MONGO_DB_NAME,
   options: {
-    auto_reconnect: true,
+    auto_reconnect: true, useUnifiedTopology: true
   },
 };
 
